@@ -2,7 +2,6 @@ package com.example.javaSpringBoot.users;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,9 +18,6 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @Autowired
-    private UserRepository userRepository;
-
     @GetMapping("/")
     public List<User> getUsers() {
         return userService.getUsers();
@@ -29,8 +25,7 @@ public class UserController {
 
     @GetMapping("/user/{userId}")
     public Optional<User> getUser(@PathVariable("userId") long id) {
-        // return userService.getUser(id);
-        return userRepository.findById(id);
+        return userService.getUser(id);
     }
 
     @PostMapping("/signinwithgoogle")
