@@ -7,7 +7,12 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.Type;
+
+import com.example.javaSpringBoot.users.User;
 
 @Entity
 @Table(name = "\"book\"")
@@ -16,26 +21,39 @@ public class Book {
     @GeneratedValue()
     private long id;
 
-    @Column(nullable = false, columnDefinition = "varchar(50)", unique = true)
+    @Column(nullable = false, unique = true)
     private String title;
-    @Column(nullable = false, columnDefinition = "varchar(50)")
+    @Column(nullable = false)
     private String isbn;
-    @Column(nullable = false, columnDefinition = "varchar(1000)")
+    @Column(nullable = false)
     private String description;
-    @Column(nullable = false, columnDefinition = "varchar(50)")
+    @Column(nullable = false)
     private String publisher;
-    @Column(nullable = false, columnDefinition = "varchar(25)")
+    @Column(nullable = false, columnDefinition = "text[]")
+    @Type(type = "com.example.javaSpringBoot.PostgreSqlStringArrayType")
     private String[] authors;
-    @Column(nullable = false, columnDefinition = "varchar(25)")
+    @Column(nullable = false, columnDefinition = "text[]")
+    @Type(type = "com.example.javaSpringBoot.PostgreSqlStringArrayType")
     private String[] categories;
-    @Column(nullable = false, columnDefinition = "varchar(10) ")
-    private String status = "available", columnDefinition = "String default 'available'";
+    @Column(nullable = false)
+    private String status = "available";
     @Column(nullable = false)
     private LocalDate publish_date;
     @Column(nullable = true, columnDefinition = "DATE default null")
     private LocalDate borrow_date = null;
     @Column(nullable = true, columnDefinition = "DATE default null")
     private LocalDate return_date = null;
+
+    @ManyToOne
+    private User user;
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 
     public Book() {
     }
