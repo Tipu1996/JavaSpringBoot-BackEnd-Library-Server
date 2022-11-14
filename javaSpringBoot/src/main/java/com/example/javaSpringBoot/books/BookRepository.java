@@ -17,6 +17,9 @@ public interface BookRepository extends JpaRepository<Book, Long> {
     @Query("Select b FROM Book b WHERE b.status=?1")
     Optional<List<Book>> getByStatus(String status);
 
-    // @Query("Select FROM Book WHERE :author = ANY(Book.author))")
-    // Optional<List<Book>> getByAuthor(@Param("author") String author);
+    @Query(value = "SELECT *, array_to_string(authors, ' ') FROM Book WHERE array_to_string(authors, ' ') LIKE %?1%", nativeQuery = true)
+    Optional<List<Book>> getByAuthor(String author);
+
+    @Query(value = "SELECT *, array_to_string(categories, ' ') FROM Book WHERE array_to_string(categories, ' ') LIKE %?1%", nativeQuery = true)
+    Optional<List<Book>> getByCategory(String category);
 }

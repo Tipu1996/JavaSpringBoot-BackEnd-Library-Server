@@ -46,15 +46,15 @@ public class BookController {
         return bookService.getByStatus(status);
     }
 
-    // @GetMapping("/book/author/{author}")
-    // public Optional<List<Book>> getUser(@PathVariable("author") String author) {
-    // return bookService.getByAuthor(author);
-    // }
+    @GetMapping("/book/author/{author}")
+    public Optional<List<Book>> getUserByAuthor(@PathVariable("author") String author) {
+        return bookService.getByAuthor(author);
+    }
 
-    // @GetMapping("/book/title/{title}")
-    // public Optional<Book> getUser(@PathVariable("title") String title) {
-    // return bookService.getByTitle(title);
-    // }
+    @GetMapping("/book/category/{category}")
+    public Optional<List<Book>> getUserByCategory(@PathVariable("category") String category) {
+        return bookService.getByCategory(category);
+    }
 
     @PostMapping("/addbook")
     public void addBook(@RequestBody Book book) {
@@ -65,5 +65,11 @@ public class BookController {
     public void lendBook(@PathVariable("bookId") long bookId, @PathVariable("userId") long userId)
             throws NameNotFoundException {
         bookService.lendBook(bookId, userId);
+    }
+
+    @PutMapping("/return/{bookId}/user/{userId}")
+    public void returnBook(@PathVariable("bookId") long bookId, @PathVariable("userId") long userId)
+            throws NameNotFoundException {
+        bookService.returnBook(bookId, userId);
     }
 }

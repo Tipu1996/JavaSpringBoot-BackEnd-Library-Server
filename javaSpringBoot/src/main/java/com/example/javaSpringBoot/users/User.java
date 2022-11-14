@@ -1,15 +1,11 @@
 package com.example.javaSpringBoot.users;
 
-import java.util.List;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
 
-import com.example.javaSpringBoot.books.Book;
+import javax.persistence.Table;
 
 @Entity
 @Table(name = "\"user\"")
@@ -34,9 +30,6 @@ public class User {
     private Boolean is_verified = false;
     @Column(length = 6)
     private String code;
-
-    @OneToMany(mappedBy = "user")
-    private List<Book> borrowed_books;
 
     public User() {
     }

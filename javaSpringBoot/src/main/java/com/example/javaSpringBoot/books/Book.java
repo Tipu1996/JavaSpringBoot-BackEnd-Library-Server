@@ -7,6 +7,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -44,7 +45,8 @@ public class Book {
     @Column(nullable = true, columnDefinition = "DATE default null")
     private LocalDate return_date = null;
 
-    @ManyToOne
+    @ManyToOne(targetEntity = User.class)
+    @JoinColumn(name = "borrower_id", referencedColumnName = "id")
     private User user;
 
     public User getUser() {
