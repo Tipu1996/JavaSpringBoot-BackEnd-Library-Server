@@ -1,8 +1,13 @@
 package com.example.javaSpringBoot.users;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
 public interface UserRepository extends JpaRepository<User, Long> {
 
-    // Optional<User> findUserBy
+    @Query(value = "select * from \"user\" left outer join book on book.borrower_id = \"user\".id", nativeQuery = true)
+    List<User> findAllUserWithBorrowedBooks();
+
 }

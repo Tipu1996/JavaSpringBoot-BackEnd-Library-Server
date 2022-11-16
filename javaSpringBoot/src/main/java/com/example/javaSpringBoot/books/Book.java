@@ -164,7 +164,7 @@ public class Book {
         return "Book [id=" + id + ", title=" + title + ", isbn=" + isbn + ", description=" + description
                 + ", publisher=" + publisher + ", authors=" + Arrays.toString(authors) + ", categories="
                 + Arrays.toString(categories) + ", status=" + status + ", publish_date=" + publish_date
-                + ", borrow_date=" + borrow_date + ", return_date=" + return_date + "]";
+                + ", borrow_date=" + borrow_date + ", return_date=" + return_date + ", user=" + user + "]";
     }
 
 }

@@ -13,7 +13,7 @@ public class UserService {
     private UserRepository userRepository;
 
     public List<User> getUsers() {
-        return userRepository.findAll();
+        return userRepository.findAllUserWithBorrowedBooks();
     }
 
     public void addNewUser(User user) {
@@ -23,5 +23,18 @@ public class UserService {
     public Optional<User> getUser(long id) {
         return userRepository.findById(id);
     }
+
+    // public void lendBook(long bookId, long userId) throws NameNotFoundException {
+    // Book book = bookRepository.getReferenceById(bookId);
+    // User user = userRepository.getReferenceById(userId);
+    // if (book == null && user == null) {
+    // throw new NameNotFoundException("Book and/or User does not exist");
+    // } else {
+    // if (user != null) {
+    // user.setBook(book);
+    // userRepository.save(user);
+    // }
+    // }
+    // }
 
 }

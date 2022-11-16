@@ -52,7 +52,8 @@ public class PostgreSqlStringArrayType implements UserType {
             Array array = session.connection().createArrayOf("text", (String[]) value);
             st.setArray(index, array);
         } else {
-            st.setNull(index, sqlTypes()[0]);
+            if (st != null)
+                st.setNull(index, sqlTypes()[0]);
         }
     }
 

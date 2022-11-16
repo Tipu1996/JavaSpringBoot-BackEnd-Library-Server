@@ -1,11 +1,17 @@
 package com.example.javaSpringBoot.users;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.example.javaSpringBoot.books.Book;
 
 @Entity
 @Table(name = "\"user\"")
@@ -30,6 +36,18 @@ public class User {
     private Boolean is_verified = false;
     @Column(length = 6)
     private String code;
+
+    @OneToMany(targetEntity = Book.class)
+    @JoinColumn(name = "borrowed_books")
+    private List<Book> book = new ArrayList<>();
+
+    public List<Book> getBook() {
+        return book;
+    }
+
+    public void setBook(Book book) {
+        this.book.add(book);
+    }
 
     public User() {
     }
@@ -128,7 +146,7 @@ public class User {
     public String toString() {
         return "User [id=" + id + ", first_name=" + first_name + ", last_name=" + last_name + ", email=" + email
                 + ", password=" + password + ", picture=" + picture + ", is_admin=" + is_admin + ", is_verified="
-                + is_verified + ", code=" + code + "]";
+                + is_verified + ", code=" + code + ", book=" + book + "]";
     }
 
 }

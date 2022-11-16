@@ -65,6 +65,7 @@ public class BookController {
     public void lendBook(@PathVariable("bookId") long bookId, @PathVariable("userId") long userId)
             throws NameNotFoundException {
         bookService.lendBook(bookId, userId);
+        // userService.lendBook(bookId, userId);
     }
 
     @PutMapping("/return/{bookId}/user/{userId}")
