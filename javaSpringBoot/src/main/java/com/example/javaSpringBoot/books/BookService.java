@@ -34,15 +34,15 @@ public class BookService {
     }
 
     public Optional<Book> getByTitle(String title) {
-        return bookRepository.getByTitle(title);
+        return bookRepository.findByTitle(title);
     }
 
     public Optional<Book> getByIsbn(String isbn) {
-        return bookRepository.getByIsbn(isbn);
+        return bookRepository.findByIsbn(isbn);
     }
 
     public Optional<List<Book>> getByStatus(String status) {
-        return bookRepository.getByStatus(status);
+        return bookRepository.findByStatus(status);
     }
 
     public Optional<List<Book>> getByAuthor(String author) {

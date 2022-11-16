@@ -6,36 +6,43 @@ import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 import com.example.javaSpringBoot.books.Book;
 
-@Entity
-@Table(name = "\"user\"")
+@Entity(name = "User")
+@Table(name = "\"user\"", uniqueConstraints = {
+        @UniqueConstraint(name = "user_email_unique", columnNames = "email")
+})
 public class User {
     @Id
-    @GeneratedValue()
-    private long id;
+    @SequenceGenerator(name = "book_sequence", sequenceName = "book_sequence", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "book_sequence")
+    private Long id;
 
-    @Column(nullable = false, length = 50)
+    @Column(nullable = false, columnDefinition = "Text")
     private String first_name;
-    @Column(nullable = false, length = 50)
+    @Column(nullable = false, columnDefinition = "Text")
     private String last_name;
-    @Column(nullable = false, length = 50, unique = true)
+    @Column(nullable = false, columnDefinition = "Text") // unique = true this is mentioned in the @Tables, can also be
+                                                         // done here
     private String email;
     @Column(length = 255)
     private String password;
-    @Column(nullable = false, length = 255, columnDefinition = "varchar(255) default '/'")
+    @Column(nullable = false, columnDefinition = "Text default '/'")
     private String picture = "/";
     @Column(nullable = false, columnDefinition = "boolean default false")
     private Boolean is_admin = false;
     @Column(nullable = false, columnDefinition = "boolean default false")
     private Boolean is_verified = false;
-    @Column(length = 6)
-    private String code;
+    @Column(length = 6, columnDefinition = "Text default null")
+    private String code = null;
 
     @OneToMany(targetEntity = Book.class)
     @JoinColumn(name = "borrowed_books")
@@ -70,11 +77,11 @@ public class User {
         this.code = code;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

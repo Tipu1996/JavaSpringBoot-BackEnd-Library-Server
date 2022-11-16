@@ -6,37 +6,40 @@ import java.util.Arrays;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.Type;
 
 import com.example.javaSpringBoot.users.User;
 
-@Entity
+@Entity(name = "Book")
 @Table(name = "\"book\"")
 public class Book {
     @Id
-    @GeneratedValue()
-    private long id;
+    @SequenceGenerator(name = "user_sequence", sequenceName = "user_sequence", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_sequence")
+    private Long id;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false, unique = true, columnDefinition = "Text")
     private String title;
-    @Column(nullable = false)
+    @Column(nullable = false, columnDefinition = "Text")
     private String isbn;
-    @Column(nullable = false)
+    @Column(nullable = false, columnDefinition = "Text")
     private String description;
-    @Column(nullable = false)
+    @Column(nullable = false, columnDefinition = "Text")
     private String publisher;
-    @Column(nullable = false, columnDefinition = "text[]")
+    @Column(nullable = false, columnDefinition = "Text[]")
     @Type(type = "com.example.javaSpringBoot.PostgreSqlStringArrayType")
     private String[] authors;
-    @Column(nullable = false, columnDefinition = "text[]")
+    @Column(nullable = false, columnDefinition = "Text[]")
     @Type(type = "com.example.javaSpringBoot.PostgreSqlStringArrayType")
     private String[] categories;
-    @Column(nullable = false)
+    @Column(nullable = false, columnDefinition = "Text")
     private String status = "available";
     @Column(nullable = false)
     private LocalDate publish_date;
@@ -71,11 +74,11 @@ public class Book {
         this.publish_date = publish_date;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
