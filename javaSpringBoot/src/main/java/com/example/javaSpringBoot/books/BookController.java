@@ -61,11 +61,15 @@ public class BookController {
         bookService.addNewBook(book);
     }
 
+    @PostMapping("/removebook/{bookId}")
+    public void removeBook(@PathVariable("bookId") long bookId) throws NameNotFoundException {
+        bookService.removeBook(bookId);
+    }
+
     @PutMapping("/lend/{bookId}/user/{userId}")
     public void lendBook(@PathVariable("bookId") long bookId, @PathVariable("userId") long userId)
             throws NameNotFoundException {
         bookService.lendBook(bookId, userId);
-        // userService.lendBook(bookId, userId);
     }
 
     @PutMapping("/return/{bookId}/user/{userId}")

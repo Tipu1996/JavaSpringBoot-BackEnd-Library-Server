@@ -24,17 +24,4 @@ public class UserService {
         return userRepository.findById(id);
     }
 
-    // public void lendBook(long bookId, long userId) throws NameNotFoundException {
-    // Book book = bookRepository.getReferenceById(bookId);
-    // User user = userRepository.getReferenceById(userId);
-    // if (book == null && user == null) {
-    // throw new NameNotFoundException("Book and/or User does not exist");
-    // } else {
-    // if (user != null) {
-    // user.setBook(book);
-    // userRepository.save(user);
-    // }
-    // }
-    // }
-
 }

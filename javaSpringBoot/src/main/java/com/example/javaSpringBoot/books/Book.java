@@ -5,6 +5,7 @@ import java.util.Arrays;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -25,9 +26,9 @@ public class Book {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_sequence")
     private Long id;
 
-    @Column(nullable = false, unique = true, columnDefinition = "Text")
-    private String title;
     @Column(nullable = false, columnDefinition = "Text")
+    private String title;
+    @Column(nullable = false, columnDefinition = "Text", unique = true)
     private String isbn;
     @Column(nullable = false, columnDefinition = "Text")
     private String description;
@@ -49,7 +50,7 @@ public class Book {
     private LocalDate return_date = null;
 
     @ManyToOne(targetEntity = User.class)
-    @JoinColumn(name = "borrower_id", referencedColumnName = "id")
+    @JoinColumn(name = "borrower_id", referencedColumnName = "id", foreignKey = @ForeignKey(name = "user_id_fk"))
     private User user;
 
     public User getUser() {

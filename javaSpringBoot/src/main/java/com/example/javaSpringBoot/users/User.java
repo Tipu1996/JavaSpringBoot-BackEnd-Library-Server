@@ -3,16 +3,19 @@ package com.example.javaSpringBoot.users;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
+
+import org.hibernate.validator.constraints.Length;
 
 import com.example.javaSpringBoot.books.Book;
 
@@ -33,7 +36,8 @@ public class User {
     @Column(nullable = false, columnDefinition = "Text") // unique = true this is mentioned in the @Tables, can also be
                                                          // done here
     private String email;
-    @Column(length = 255)
+    @Column(columnDefinition = "Text")
+    @Length(min = 8)
     private String password;
     @Column(nullable = false, columnDefinition = "Text default '/'")
     private String picture = "/";
@@ -41,19 +45,25 @@ public class User {
     private Boolean is_admin = false;
     @Column(nullable = false, columnDefinition = "boolean default false")
     private Boolean is_verified = false;
-    @Column(length = 6, columnDefinition = "Text default null")
+    @Column(columnDefinition = "Text default null")
+    @Length(min = 6, max = 6)
     private String code = null;
 
-    @OneToMany(targetEntity = Book.class)
-    @JoinColumn(name = "borrowed_books")
-    private List<Book> book = new ArrayList<>();
+    @OneToMany(mappedBy = "user", orphanRemoval = true, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<Book> books = new ArrayList<>();
 
-    public List<Book> getBook() {
-        return book;
+    public void addBook(Book book) {
+        if (!this.books.contains(book)) {
+            this.books.add(book);
+            book.setUser(this);
+        }
     }
 
-    public void setBook(Book book) {
-        this.book.add(book);
+    public void removeBook(Book book) {
+        if (this.books.contains(book)) {
+            this.books.remove(book);
+            book.setUser(null);
+        }
     }
 
     public User() {
@@ -153,7 +163,7 @@ public class User {
     public String toString() {
         return "User [id=" + id + ", first_name=" + first_name + ", last_name=" + last_name + ", email=" + email
                 + ", password=" + password + ", picture=" + picture + ", is_admin=" + is_admin + ", is_verified="
-                + is_verified + ", code=" + code + ", book=" + book + "]";
+                + is_verified + ", code=" + code + ", books=" + books + "]";
     }
 
 }

@@ -33,6 +33,16 @@ public class BookService {
         bookRepository.save(book);
     }
 
+    public void removeBook(long bookId) throws NameNotFoundException {
+        Book book = bookRepository.getReferenceById(bookId);
+        if (book == null) {
+            throw new NameNotFoundException("Book and/or User does not exist");
+        } else {
+            // bookRepository.deleteById(bookId);
+            bookRepository.delete(book);
+        }
+    }
+
     public Optional<Book> getByTitle(String title) {
         return bookRepository.findByTitle(title);
     }
@@ -83,4 +93,5 @@ public class BookService {
             }
         }
     }
+
 }
