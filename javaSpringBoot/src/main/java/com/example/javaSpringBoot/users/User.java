@@ -53,17 +53,19 @@ public class User {
     private List<Book> books = new ArrayList<>();
 
     public void addBook(Book book) {
-        if (!this.books.contains(book)) {
-            this.books.add(book);
-            book.setUser(this);
-        }
+        // if (!this.books.contains(book)) {
+        // this.books.add(book);
+        // book.setUser(this);
+        // }
+        this.books.add(book);
     }
 
     public void removeBook(Book book) {
-        if (this.books.contains(book)) {
-            this.books.remove(book);
-            book.setUser(null);
-        }
+        // if (this.books.contains(book)) {
+        // this.books.remove(book);
+        // book.setUser(null);
+        // }
+        this.books.remove(book);
     }
 
     public User() {

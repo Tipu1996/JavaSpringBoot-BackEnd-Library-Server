@@ -74,6 +74,8 @@ public class BookService {
                 book.setBorrow_date(LocalDate.now());
                 book.setUser(user);
                 bookRepository.save(book);
+                user.addBook(book);
+                userRepository.save(user);
             }
         }
     }
